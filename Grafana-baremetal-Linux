@@ -1,0 +1,23 @@
+[After install Nginx]
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+sudo apt update
+sudo apt install grafana
+sudo systemctl start grafana-server
+sudo systemctl enable grafana-server
+sudo systemctl status grafana-server
+sudo nano /etc/nginx/sites-available/your_domain
+
+Delete the existing try_files line in this location block and replace it with the following proxy_pass option:
+
+...
+	location / {
+	  	proxy_pass http://localhost:3000;
+	}
+...
+
+sudo nginx -t
+sudo systemctl reload nginx
+
+URL - IP WITH 3000 Like - 127.0.0.1:3000
+log in with admin both username & password. 
